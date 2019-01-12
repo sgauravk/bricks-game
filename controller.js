@@ -41,6 +41,16 @@ const handleKeyEvent = function(document, paddle){
   }
 };
 
+const moveBall = function(ball){
+  let move = ball.moveUp.bind(ball);
+  setInterval(() => {
+    if(ball.bottom == 30) move = ball.moveUp.bind(ball);
+    if(ball.bottom == 670) move = ball.moveDown.bind(ball);
+    move();
+    drawBall(document, ball);
+  },40)
+}
+
 const initialize = function(){
   let screen = document.getElementById("screen");
   let paddle = new Paddle(25,150,5,540,10);
@@ -52,6 +62,7 @@ const initialize = function(){
   screen.focus();
   drawPaddle(document, paddle);
   drawBall(document, ball);
+  moveBall(ball);
   screen.onkeydown = handleKeyEvent.bind(null,document, paddle);
 }
 

@@ -26,13 +26,18 @@ class Ball {
     this.width = width;
     this.bottom = bottom;
     this.left = left;
-    this.speed = speed;
+    this.deltaLeft = speed;
+    this.deltaBottom = speed;
   }
-  moveUp() {
-    this.bottom += this.speed;
+  move() {
+    this.left += this.deltaLeft;
+    this.bottom += this.deltaBottom;
   }
-  moveDown() {
-    this.bottom -= this.speed;
+  changeLeftDirection() {
+    this.deltaLeft = -this.deltaLeft;
+  }
+  changeBottomDirection() {
+    this.deltaBottom = -this.deltaBottom;
   }
   increaseSpeed() {
     this.speed += 5;

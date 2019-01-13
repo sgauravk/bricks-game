@@ -42,24 +42,32 @@ const handleKeyEvent = function(document, paddle){
 };
 
 const moveBall = function(ball){
-  let move = ball.moveUp.bind(ball);
   setInterval(() => {
-    if(ball.bottom == 30) move = ball.moveUp.bind(ball);
-    if(ball.bottom == 670) move = ball.moveDown.bind(ball);
-    move();
+    if(ball.left > 1170 || ball.left < 0){
+      ball.changeLeftDirection();
+    }
+    if(ball.bottom > 670 || ball.bottom < 25){
+      ball.changeBottomDirection();
+    }
+    ball.move();
     drawBall(document, ball);
-  },40)
+  },30)
 }
 
-const initialize = function(){
+const createDiv = function(paddle, ball){
   let screen = document.getElementById("screen");
-  let paddle = new Paddle(25,150,5,540,10);
   let paddleDiv = createPaddleDiv(paddle);
-  let ball = new Ball(28,28,30,600,10);
   let ballDiv = createBallDiv(ball);
   screen.appendChild(paddleDiv);
   screen.appendChild(ballDiv);
   screen.focus();
+  return screen;
+}
+
+const initialize = function(){
+  let paddle = new Paddle(25,150,5,540,15);
+  let ball = new Ball(28,28,30,600,10);
+  let screen = createDiv(paddle, ball);
   drawPaddle(document, paddle);
   drawBall(document, ball);
   moveBall(ball);

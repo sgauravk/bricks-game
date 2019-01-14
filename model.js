@@ -62,7 +62,8 @@ class Bricks {
     this.rows = rows;
     this.columns = columns;
   }
-  createRow(row, bricks, left, bottom) {
+  createRow(row, left, bottom) {
+    let bricks = [];
     for (let column = 0; column < this.columns; column++) {
       let brickId = "brick_" + column + "_" + row;
       let brick = new Brick(28, 110, left, bottom, brickId);
@@ -76,7 +77,7 @@ class Bricks {
     let left = 5;
     let bottom = 480;
     for (let rows = 0; rows < this.rows; rows++) {
-      let row = this.createRow(rows, bricks, left, bottom);
+      let row = this.createRow(rows, left, bottom);
       bricks = bricks.concat(row);
       left = 5;
       bottom += 40;

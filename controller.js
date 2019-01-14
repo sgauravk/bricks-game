@@ -30,6 +30,29 @@ const createPaddleDiv = function(paddle){
   return paddleDiv;
 }
 
+const drawObject = function(document, ID, details){
+  let objectDiv = document.getElementById(ID);
+  objectDiv.style.width = withPx(details.width);
+  objectDiv.style.height = withPx(details.height);
+  objectDiv.style.left = withPx(details.left);
+  objectDiv.style.bottom = withPx(details.bottom);
+}
+
+const createBricksDiv = function(document, divID, divClass){
+  let bricksDiv = document.createElement("div");
+  bricksDiv.id = divID;
+  bricksDiv.className = divClass;
+  return bricksDiv; 
+}
+
+const drawBricks = function(document, screen, bricks){
+  bricks.map( brick => {
+    let brickDiv = createBricksDiv(document ,brick.id, "brick");
+    screen.appendChild(brickDiv);
+    drawObject(document, brick.id, brick);
+  });
+}
+
 const handleKeyEvent = function(document, paddle){
   if(event.key == "ArrowLeft" && paddle.left > 0){
     paddle.leftMove();
@@ -43,10 +66,10 @@ const handleKeyEvent = function(document, paddle){
 
 const moveBall = function(ball){
   setInterval(() => {
-    if(ball.left > 1170 || ball.left < 0){
+    if(ball.left > 1168 || ball.left < 2 ){
       ball.changeLeftDirection();
     }
-    if(ball.bottom > 670 || ball.bottom < 25){
+    if(ball.bottom > 668 || ball.bottom < 25){
       ball.changeBottomDirection();
     }
     ball.move();
@@ -71,6 +94,9 @@ const initialize = function(){
   drawPaddle(document, paddle);
   drawBall(document, ball);
   moveBall(ball);
+  let brick = new Bricks(5, 10);
+  let bricks = brick.createBricks();
+  drawBricks(document, screen, bricks);
   screen.onkeydown = handleKeyEvent.bind(null,document, paddle);
 }
 

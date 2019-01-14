@@ -17,3 +17,9 @@ main {
   height: 700px;
   width: 1200px;
 }
+
+.brick {
+  position: absolute;
+  background-color: darkblue;
+  border-radius: 5%;
+}
